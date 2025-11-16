@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Placed - My Shop{% endblock %}
+
+{% block content %}
+<div class="alert alert-success">
+  <h4 class="alert-heading">Thank you!</h4>
+  <p>Your order has been placed (dummy checkout). The cart has been cleared.</p>
+</div>
+
+<a href="{% url 'store:product_list' %}" class="btn btn-primary">
+  Continue shopping
+</a>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart - My Shop{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Your Cart</h2>
+
+{% if cart_items %}
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Product</th>
+          <th class="text-center">Qty</th>
+          <th class="text-end">Price</th>
+          <th class="text-end">Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in cart_items %}
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td class="text-center">{{ item.quantity }}</td>
+            <td class="text-end">Rs. {{ item.product.price }}</td>
+            <td class="text-end">Rs. {{ item.subtotal }}</td>
+            <td class="text-end">
+              <a class="btn btn-sm btn-outline-danger"
+                 href="{% url 'store:cart_remove' item.product.pk %}">
+                Remove
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="3" class="text-end">Total:</th>
+          <th class="text-end">Rs. {{ total }}</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-between mt-3">
+    <a class="btn btn-outline-secondary" href="{% url 'store:product_list' %}">
+      Continue shopping
+    </a>
+    <a class="btn btn-success" href="{% url 'store:checkout' %}">
+      Proceed to Checkout
+    </a>
+  </div>
+{% else %}
+  <div class="alert alert-info">
+    Your cart is empty.
+  </div>
+  <a class="btn btn-primary" href="{% url 'store:product_list' %}">
+    Go to products
+  </a>
+{% endif %}
+{% endblock %}
